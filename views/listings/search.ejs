@@ -1,0 +1,94 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-4">
+    <!-- Search Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="mb-3">
+                <% if (hasFilters && searchTerm) { %>
+                    Search Results for "<%= searchTerm %>"
+                <% } else { %>
+                    All Listings
+                <% } %>
+            </h2>
+            <p class="text-muted">
+                <% if (hasFilters) { %>
+                    Found <%= totalResults %> result<%= totalResults !== 1 ? 's' : '' %>
+                <% } else { %>
+                    Showing all <%= totalResults %> listings
+                <% } %>
+            </p>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="row">
+        <% if (allListings.length > 0) { %>
+            <% for(let listing of allListings) { %>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <a href="/listing/<%= listing._id %>" class="listing-link text-decoration-none">
+                        <div class="card h-100 listing-card shadow-sm">
+                            <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>" 
+                                 style="height: 250px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-dark mb-2"><%= listing.title %></h5>
+                                <p class="card-text text-muted mb-2">
+                                    <i class="fa-solid fa-map-marker-alt me-1"></i>
+                                    <%= listing.location %>, <%= listing.country %>
+                                </p>
+                                <% if (listing.category) { %>
+                                    <span class="badge bg-primary mb-2"><%= listing.category %></span>
+                                <% } %>
+                                <div class="mt-auto">
+                                    <p class="card-text text-dark fw-bold">
+                                        <i class="fa-solid fa-indian-rupee-sign me-1"></i>
+                                        <%= listing.price.toLocaleString("en-IN") %> / night
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <% } %>
+        <% } else { %>
+            <div class="col-12">
+                <div class="text-center py-5">
+                    <i class="fa-solid fa-search fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">No listings found</h4>
+                    <% if (hasFilters) { %>
+                        <p class="text-muted">Try searching for a different country or city.</p>
+                        <a href="/listing" class="btn btn-primary">View All Listings</a>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<style>
+.listing-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: none;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+.listing-link:hover {
+    text-decoration: none;
+}
+
+.card-img-top {
+    transition: transform 0.2s ease-in-out;
+}
+
+.listing-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.badge {
+    font-size: 0.8rem;
+}
+</style>

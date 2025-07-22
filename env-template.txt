@@ -1,0 +1,13 @@
+# Environment Variables Template for GetYourStay
+# Copy this file to .env and fill in your actual values
+
+# Mapbox Configuration
+MAP_TOKEN=your_mapbox_access_token_here
+
+# Cloudinary Configuration (for image uploads)
+CLOUD_NAME=your_cloudinary_cloud_name
+CLOUD_API_KEY=your_cloudinary_api_key
+CLOUD_API_SECRET=your_cloudinary_api_secret
+
+# Node Environment
+NODE_ENV=development 
